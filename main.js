@@ -1,26 +1,38 @@
-// Ứng dụng closure logger()
+// Ứng dụng lưu dữ liệu vào storage
 
-function createLogger(namespace){
-
-    function logger(message){
-        console.log(`[${namespace}] ${message}`);
+function createStorage(key){
+    const store = JSON.parse(localStorage.getItem(key)) ?? {}
+    // console.log(store);
+    const save = () => {
+        localStorage.setItem(key ,JSON.stringify(store) )
     }
-    return logger
+
+    const storage = {
+        get(key){
+            return store[key];
+        },
+        set(key , value){
+            store[key] = value;
+            save()
+        },
+        remove(key){
+            delete store[key] 
+            save()
+        }
+    }
+    return storage;
 }
 
-// ============== App ===============
+const ProfilesSetting = createStorage('profile_setting')
 
-// Ex Register.js
+ProfilesSetting.set('fullname' , "Phan Dai Cat")
+ProfilesSetting.set('age' , 18)
 
-const infoLogger = createLogger('Info')
+const a = ProfilesSetting.get('fullname')
+console.log(a);
 
-infoLogger('Bat dau gui mail')
-infoLogger('Gui mail loi , gui lai !!!')
-infoLogger('Gui mail thanh cong')
 
-// ForgotPassword.js
 
-const errorLogger = createLogger('Error');
 
-errorLogger('Email khong ton tai trong DB')
-errorLogger('Gui mai thanh cong')
+
+// ?? là nếu ở trước ?? có giá trị undefine hoặc null thì nó sẽ lấy kết quả sau ?? để làm giá trị
