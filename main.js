@@ -1,38 +1,26 @@
-// Ứng dụng lưu dữ liệu vào storage
+function createApp(){
+    const cars = [];
 
-function createStorage(key){
-    const store = JSON.parse(localStorage.getItem(key)) ?? {}
-    // console.log(store);
-    const save = () => {
-        localStorage.setItem(key ,JSON.stringify(store) )
-    }
+    return {
+        add(car){
+            cars.push(car);
+        },
 
-    const storage = {
-        get(key){
-            return store[key];
-        },
-        set(key , value){
-            store[key] = value;
-            save()
-        },
-        remove(key){
-            delete store[key] 
-            save()
+        show(){
+            console.log(cars);
         }
     }
-    return storage;
 }
 
-const ProfilesSetting = createStorage('profile_setting')
+const app = createApp();
+/* Khi khởi tạo biến app = createApp() thì createApp() sẽ
+ trả về khúc return cho thằng app sài 
+ Thằng app chỉ sài đc 2 hàm trong return thôi
+ 
+ app.cars sẽ k đc vì cars k có trong return 
+ */
+app.add('BMW')
+// Khi app thêm BMW vào cars được vì hàm add sử dụng được biến ở ngoài chứ thằng 
+// chứ thằng app k bao giờ truy cập đến mảnh cars đc
 
-ProfilesSetting.set('fullname' , "Phan Dai Cat")
-ProfilesSetting.set('age' , 18)
-
-const a = ProfilesSetting.get('fullname')
-console.log(a);
-
-
-
-
-
-// ?? là nếu ở trước ?? có giá trị undefine hoặc null thì nó sẽ lấy kết quả sau ?? để làm giá trị
+app.show()
