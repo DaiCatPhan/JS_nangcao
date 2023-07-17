@@ -1,33 +1,13 @@
-;(function(){
-    console.log(123);
-})()
+function makeCounter(){
+    let count = 0;
 
-// Đây là 1 IIFE
-
-const app = (function(){
-
-    // Private
-    const cars = [];
-    return {
-        get(index){
-            return cars[index];
-        },
-        add(car){
-            cars.push(car)
-        },
-        edit(index , car){
-            cars[index] = car;
-        },
-        delete(index){
-            cars.splice(index,1)
-        }
+    function increase(){
+        return ++ count;
     }
-})()
 
-app.add('BMW');
-app.add('Mes');
-app.add('Toyota');
-console.log(app.get(1));
+    return increase();
 
+}
 
-
+const increase1 = makeCounter();
+console.log( increase1);
