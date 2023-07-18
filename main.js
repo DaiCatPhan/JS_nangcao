@@ -1,38 +1,69 @@
-this.firstName = 'Minh';
-this.lastName = 'Thu';
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
 
-const teacher = {
-    firstName : 'Minh',
-    lastName : 'Thao',
-    getFullName (){
-        return `${this.firstName} ${this.lastName}`;
 
+const app = (() => {
+    const cars = ['BMW' , 'Mes' , "Kia"];
+
+    const root = $('#root')
+    const input = $('#input')
+    const submit = $('#submit')
+    return {
+        add(car){
+            cars.push(car)
+        },
+
+        delete(index){
+            cars.splice(index,1)
+        },
+
+        render(){
+            const html = cars.map((car , index) => {
+                return `
+                    <li>
+                        ${car}
+                        <span data-index="${index}" class="delete">&times</span>
+                    </li>
+                `
+            }).join('')
+
+            root.innerHTML = html;
+        },
+
+        handleDelete(e){
+            const deleteBtn = e.target.closest('.delete');
+            
+            if(deleteBtn){
+                const index = e.target.dataset.index;
+                this.delete(index)
+                this.render()
+            }
+        },
+
+        init(){
+            // Handle DOM events
+            submit.onclick = () => {
+                const car = input.value;
+                this.add(car);
+                this.render();
+
+                input.value = '';
+                input.focus();
+            }
+
+            root.onclick = this.handleDelete.bind(this)
+
+
+            // arrow function k có context nên this là app
+            // nếu k phải arrow function thì this là submit
+
+
+            this.render()
+        }
     }
+})()
 
-}
-
-
-
-// Case 1 
-console.log(teacher.getFullName()); // "Minh Thao"
-
-// Case 2
-const getTeacherName = teacher.getFullName;
-console.log(getTeacherName());  // "Minh Thu"
-
-// --> Case 2 : teacher.getFullName chưa gọi hàm nó chỉ truy cập vào hàm
-// sau đó nó gán cái function này sang 1 biến khác 
-// biến getTeacherName nhận 1 địa chỉ 
-// Khi gọi 1 hàm k thông qua 1 đối tượng , k có dấu chấm ở trước thì nó chọc ra bên ngoài windown nên lấy biến ở global luôn
+console.log(app);
+app.init()
 
 
-// Ứng dụng bind() 
-const getTeacherName_bind = teacher.getFullName.bind(teacher);
-console.log(getTeacherName_bind());  // "Minh Thao" 
-
-// tức nghĩa là thằng bind(teacher) là hiểu là thằng this trong hàm là thằng student chứ
-// k phải là thằng nào khác
-
-// Bind có thể nhận nhiều tham số 
-// THam số đầu tiên là object để this
-// all tham số còn lại là tham số của hàm như thường
