@@ -1,19 +1,16 @@
-const teacher = {
-    firstName: 'Minh',
-    lastName : 'Thu',
 
+function Animal(name , weight){
+    this.name = name;
+    this.weight = weight
 }
 
-function greet(greeting , message){
-    return `${greeting} ${this.firstName} ${this.lastName}.${message}`
-
+function Parrot(){
+    Animal.apply(this,arguments)
+    this.speak = function(){
+        console.log('Nha co khac');
+    }
 }
 
-let result = greet.apply(teacher,['Em chao co' , 'Co day mon j the a'])
+const conVet = new Parrot('Vet' , 300)
 
-console.log(result);
-
-// So sanh vs call() method
-
-let result_call = greet.call(teacher,'Em chao co' , 'Co day mon j the a')
-console.log(result_call);
+console.log(conVet);
