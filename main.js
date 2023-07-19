@@ -1,19 +1,16 @@
- firstName = 'Son'
- lastName ="Dang"
+function Animal(name , weight){
+    this.name = name;
+    this.weight = weight;
+}
 
-const me ={
-    firstName: 'PDC',
-    lastName: 'DNV'
+function Chicken(name , weight , legs){
+    Animal.call(this,name , weight)
+    this.legs = legs;
 }
 
 
-function showFullName(){
-    console.log(`${this.firstName} ${this.lastName}`);
-}
+const SonDang = new Chicken('Son Dang' , '60' ,'2');
+console.log(SonDang);
+//--> Chicken {name: 'Son Dang', weight: '60', legs: '2'}
 
-
-showFullName.call(this) // Son Dang
-// call mà gọi this thì nó trỏ ra windown
-
-showFullName.call(me) // PDC DNV
-
+// Tinh ke thua
