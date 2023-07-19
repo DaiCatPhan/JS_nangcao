@@ -1,21 +1,19 @@
-const teacher = {
-    firstName: 'Minh ',
-    lastName: 'Thu',
+ firstName = 'Son'
+ lastName ="Dang"
+
+const me ={
+    firstName: 'PDC',
+    lastName: 'DNV'
 }
 
-const me = {
-    firstName: 'Son',
-    lastName: 'Dang',
-    showFullName(){
-        console.log(`${this.firstName} ${this.lastName}`);
-    }
+
+function showFullName(){
+    console.log(`${this.firstName} ${this.lastName}`);
 }
 
-me.showFullName.call(teacher)
 
-// Kỉ thuật mượn hàm showFullName cho teacher 
+showFullName.call(this) // Son Dang
+// call mà gọi this thì nó trỏ ra windown
 
+showFullName.call(me) // PDC DNV
 
-
-// bind chỉ bind this rồi trả ra cái hàm mới, this mới
-// call là by this rồi gọi luôn cái hàm đó
