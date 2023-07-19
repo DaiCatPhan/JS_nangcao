@@ -13,4 +13,4 @@ const SonDang = new Chicken('Son Dang' , '60' ,'2');
 console.log(SonDang);
 //--> Chicken {name: 'Son Dang', weight: '60', legs: '2'}
 
-// Tinh ke thua
+// Tinh ke thua !
