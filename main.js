@@ -1,16 +1,19 @@
-function Animal(name , weight){
-    this.name = name;
-    this.weight = weight;
+const teacher = {
+    firstName: 'Minh',
+    lastName : 'Thu',
+
 }
 
-function Chicken(name , weight , legs){
-    Animal.call(this,name , weight)
-    this.legs = legs;
+function greet(greeting , message){
+    return `${greeting} ${this.firstName} ${this.lastName}.${message}`
+
 }
 
+let result = greet.apply(teacher,['Em chao co' , 'Co day mon j the a'])
 
-const SonDang = new Chicken('Son Dang' , '60' ,'2');
-console.log(SonDang);
-//--> Chicken {name: 'Son Dang', weight: '60', legs: '2'}
+console.log(result);
 
-// Tinh ke thua !
+// So sanh vs call() method
+
+let result_call = greet.call(teacher,'Em chao co' , 'Co day mon j the a')
+console.log(result_call);
